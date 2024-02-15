@@ -1,0 +1,17 @@
+{
+    "name": "imply/unit-test",
+    "require": {
+        "phpunit/phpunit": "^11.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "src\\classes\\": "src/classes/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Cauã Mahl",
+            "email": "cauamahl@yahoo.com.br"
+        }
+    ]
+}
