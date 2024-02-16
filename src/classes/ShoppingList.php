@@ -17,13 +17,12 @@ class ShoppingList
 
     public function removeItem($index)
     {
-        if (!in_array($index,$this->items)){
+        if (isset($this->items[$index])) {
             unset($this->items[$index]);
             $this->items = array_values($this->items);
-        } else {
-            return "item inexistente";
+            return true;
         }
-
+        return false;
     }
 
     public function clearItems()

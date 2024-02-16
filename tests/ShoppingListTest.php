@@ -22,30 +22,6 @@ class ShoppingListTest extends TestCase {
         $this->assertEquals("maçã", $items[0]);
     }
 
-    /*
-    Exercícios:
-        1. Interpretação:
-            a) Qual é o propósito da classe ShoppingList?
-
-                A classe ShoppingList é um objeto que guarda em sua variavel Items uma array de itens, esses que podem ser adicionados e excluídos de acordo com seus métodos, os itens armazenados podem ser recuperados através do getItems.
-            
-            b) Quais são os métodos disponíveis na classe ShoppingList e o que cada um
-            deles faz?
-            
-                getItem = pega todos os itens armazenados no objeto.
-                addItem = adiciona um item na variavel de array Items do objeto.
-                removeItem = remove um item na variavel de array Items do objeto.
-
-            c) Explique o que é testado no método testAddItem().
-
-                É testado se o método realmente está adicionando um item para variavel do objeto.
-            
-            d) Qual é a finalidade do método testRemoveItem() e o que ele verifica?
-
-                É testado se o método realmente está removendo um item para variavel do objeto.
-
-    */
-
     /* 2. Desenvolvimento:
         a) Adicione um novo método de teste na classe ShoppingListTest para verificar se o método addItem() trata corretamente a adição de itens duplicados.*/
 
@@ -54,19 +30,24 @@ class ShoppingListTest extends TestCase {
         $teste->addItem("banana");
         $teste->addItem("banana");
         $items = $teste->getItems();
-        $this->assertEquals("banana", $items[1]); // pesquisar qual assert correto para situação
+        $this->assertEquals("banana", $items[1]);
+        $this->assertContainsOnly('string', $items); // Jeferson passou no grupo
+        $this->assertNotEquals($items, array_unique($items));
     }
 
-        //b) Escreva um cenário de teste adicional na classe ShoppingListTest para garantir que o método removeItem() lida corretamente com a tentativa de remover um item que não existe na lista.
+        //b) Escreva um cenário de teste adicional na classe ShoppingListTest para garantir que o método removeItem()
+        //  lida corretamente com a tentativa de remover um item que não existe na lista.
 
     public function testRemoverInexistente(){
-         $teste = new ShoppingList;
-         $teste->addItem("banana");
-         $teste->addItem("maçã");
-         $this->assertEquals(, $teste->removeItem(9));
+        $teste = new ShoppingList;
+        $teste->addItem("banana");
+        $a = $teste->removeItem(1);
+        $this->assertFalse($a);
     }
 
-        //c) Desenvolva um método na classe ShoppingList chamado clearItems() que limpa todos os itens da lista de compras. Em seguida, crie um novo método de teste naclasse ShoppingListTest para garantir que o método clearItems() remova todos os itens da lista.
+        //c) Desenvolva um método na classe ShoppingList chamado clearItems() que limpa todos os itens da lista de compras.
+        //   Em seguida, crie um novo método de teste naclasse ShoppingListTest para garantir que o método clearItems() remova todos os itens da lista.
+
     public function testClearItems(){
         $teste = new ShoppingList;
         $teste->addItem("banana");
@@ -75,9 +56,33 @@ class ShoppingListTest extends TestCase {
         $itens= $teste->getItems();
         $this->assertnotContains("banana", $itens, "contém banana");
         $this->assertnotContains("maçã", $itens, "contém maçã");
-
+        $this->assertEmpty($itens); //talvez seja redundante mas pelo menos confere tudo certinho
     }
 }
 
+/*
+    Exercícios:
+        1. Interpretação:
+            a) Qual é o propósito da classe ShoppingList?
 
+                A classe ShoppingList é um objeto que guarda em sua variavel Items uma array de itens, esses que podem ser adicionados
+                e excluídos de acordo com seus métodos, os itens armazenados podem ser recuperados através do getItems.
+            
+            b) Quais são os métodos disponíveis na classe ShoppingList e o que cada um
+            deles faz?
+            
+                getItem = pega todos os itens armazenados no objeto.
+                addItem = adiciona um item na variavel de array Items do objeto.
+                removeItem = remove um item na variavel de array Items do objeto se ele existir, se nao retorna falso.
+
+            c) Explique o que é testado no método testAddItem().
+
+                É testado se o método realmente está adicionando um item para variavel do objeto.
+            
+            d) Qual é a finalidade do método testRemoveItem() e o que ele verifica?
+
+                É testado se o método realmente está removendo um item para variavel do objeto. 
+                Eliminei o primeiro item da array e VERIFIQUEI se o segundo item  tomou o lugar do primeiro
+
+    */
 ?>
